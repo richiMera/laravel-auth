@@ -20,7 +20,7 @@
               <td>{{$post->title}}</td>
               <td>{{$post->author}}</td>
               <td>{{$post->created_at}}</td>
-              <td></td>
+              <td><a href="{{route('admin.posts.show', $post)}}" class="btn btn-info">Info</a></td>
           @endforeach
         </tr>
       </tbody>
