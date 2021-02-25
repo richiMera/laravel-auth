@@ -10,7 +10,7 @@
           <th scope="col">Title</th>
           <th scope="col">Author</th>
           <th scope="col">Data_Creazione</th>
-          <th></th>
+          <th colspan="3"></th>
         </tr>
       </thead>
       <tbody>
@@ -21,6 +21,15 @@
               <td>{{$post->author}}</td>
               <td>{{$post->created_at}}</td>
               <td><a href="{{route('admin.posts.show', $post)}}" class="btn btn-info">Info</a></td>
+              <td><a href="{{route('admin.posts.edit', $post)}}" class="btn btn-success">Edit</a></td>
+              <td>
+                <form action="{{route('admin.posts.destroy', $post->id)}}" method="post">
+                  @csrf
+                  @method('DELETE')
+                  <button class="btn btn-danger">Delete</button>
+
+                </form>
+              </td>
           @endforeach
         </tr>
       </tbody>
