@@ -1,0 +1,43 @@
+#app {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    header {
+        width: 15%;
+        height: 100%;
+        padding: 20px 0px;
+        color: white;
+        background-color: #202C45;
+        .logo {
+            margin-bottom: 50px;
+        }
+        li {
+            margin: 20px 0;
+            padding: 0 30px;
+            a {
+                font-size: 18px;
+                color: white;
+                text-decoration: none;
+            }
+        }
+    }
+    main {
+        width: calc(100% - 15%);
+        .header_top_main {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: calc(100% - 15%);
+            height: 40px;
+            background-color: lightcoral;
+            position: fixed;
+            padding: 0 40px;
+            top: 0;
+            right: 0;
+            a {
+                text-decoration: none;
+                color: #202C45;
+            }
+        }
+    }
+}

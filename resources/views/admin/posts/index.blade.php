@@ -1,8 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 
-  <div class="container">
     <table class="table">
       <thead class="thead-dark">
         <tr>
@@ -39,7 +38,6 @@
       </tbody>
     </table>
     <a href="{{route('admin.posts.create')}}" class="btn btn-primary my-3">Crea nuovo articolo</a>
-  </div>
   
 
 @endsection
