@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Post;
-use App\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BlogMail;
+use App\Post;
+use App\User;
 
 class PostController extends Controller
 {
@@ -44,9 +47,13 @@ class PostController extends Controller
         $data = $request->all();
         $data['user_id'] = Auth::id();
         $data['slug'] = Str::slug($data['title']);
+        $data['img_path'] = Storage::disk('public')->put('images', $data['img_path']);
+
         $newPost = new Post();
         $newPost->fill($data);
         $newPost->save();
+
+        Mail::to('richi@gmail.com')->send(new BlogMail($newPost));
 
         return redirect()->route('admin.posts.index');
     }
