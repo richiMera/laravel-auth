@@ -1,4 +1,4 @@
-@extends('layouts.admnin')
+@extends('layouts.admin')
 
 @section('content')
     @if ($errors->any())
@@ -27,6 +27,17 @@
         <label for="body">Nuovo articolo</label>
         <textarea class="form-control" name="body" id="body" rows="6">{{$post->body}}</textarea>
     </div>
+
+    <h3>Tags</h3>
+    @foreach ($tags as $tag)
+         <div class=" custom-checkbox mb-3">
+            <input type="checkbox" class="custom-input" id="tag-{{$tag->id}}" name="tags[]" value="{{$tag->id}}" 
+                @if ($post->tags->contains($tag->id))
+                     checked
+                @endif>
+            <label class="custom-label" for="tag-{{$tag->id}}">{{$tag->name}}</label>
+        </div>
+    @endforeach 
 
     <input class="btn btn-dark" type="submit" value="invia">
 

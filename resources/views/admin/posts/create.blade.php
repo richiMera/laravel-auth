@@ -33,6 +33,19 @@
             <input type="file" class="form-control" name="img_path" id="img_path"  accept="image/*">
         </div>
 
+          
+        <div class="form-group">
+            <label for="tags">Tags</label>
+            <select class="select2 form-control" name="tags[]" id="tags" multiple>
+                @foreach ($tags as $tag)
+                    <option value="{{$tag->id}}">{{$tag->name}}</option>
+                @endforeach
+            </select>
+        </div>
+
+        
+    
+
         <input class="btn btn-dark" type="submit" value="invia">
 
         

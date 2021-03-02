@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\BlogMail;
 use App\Post;
 use App\User;
+use App\Tag;
 
 class PostController extends Controller
 {
@@ -32,8 +33,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('admin.posts.create');
+    {   
+        $tags = Tag::all();
+        return view('admin.posts.create', compact('tags'));
     }
 
     /**
@@ -53,7 +55,11 @@ class PostController extends Controller
         $newPost->fill($data);
         $newPost->save();
 
-        Mail::to('richi@gmail.com')->send(new BlogMail($newPost));
+        if(!empty($data["tags"])) {
+            $newPost->tags()->attach($data["tags"]);
+        };
+
+        // Mail::to('richi@gmail.com')->send(new BlogMail($newPost));
 
         return redirect()->route('admin.posts.index');
     }
@@ -76,8 +82,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Post $post)
-    {
-        return view('admin.posts.edit', compact('post'));
+    {   
+        $tags = Tag::all();
+        return view('admin.posts.edit', compact('post', 'tags'));
     }
 
     /**
@@ -90,7 +97,16 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $data = $request->all();
+        $data['slug'] = Str::slug($data['title']);
         $post->update($data);
+
+        if (empty($data['tags'])) {
+            $post->tags()->detach($data['tags']);
+        } else {
+            $post->tags()->sync($data['tags']);
+        }
+
+
 
         return redirect()->route('admin.posts.index');
 
